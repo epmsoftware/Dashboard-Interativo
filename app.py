@@ -1,20 +1,22 @@
-import streamlit as st
-import pandas as pd
+import streamlit as st # Por convenção, vamos apelidar o streamlit de st
+import pandas as pd # Importando a biblioteca Pandas
+
+# Importando as demais bibliotecas necessárias
 import numpy as np
 import altair as alt
 
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.neural_network import MLPRegressor
 
-# Configuração da página
+# Aqui definimos o título da página e o layout como wide
 st.set_page_config(page_title="Meu Dashboard", layout="wide")
 
-# Título
+#Título do seu dashboard
 st.title("Meu primeiro Dashboard")
 st.write("Abaixo veremos os próximos passos")
 
 # Importar base de dados
-df = pd.read_csv('NSE-TATAGLOBAL11.csv', sep=',')
+df = pd.read_csv('NSE-TATAGLOBAL11.csv', sep=',') # Importando a base de dados e transformando em um DataFrame do pandas
 
 # Manipulação do DataFrame
 data = df.sort_index(ascending=True, axis=0)
@@ -23,12 +25,12 @@ for i in range(0, len(data)):
     new_data.loc[i, 'Date'] = data.loc[i, 'Date']
     new_data.loc[i, 'Close'] = data.loc[i, 'Close']
 
-# Ajuste de índice
+# Setando o index
 new_data.index = pd.to_datetime(new_data['Date'])
 new_data.drop('Date', axis=1, inplace=True)
 new_data.sort_index(ascending=True, inplace=True)
 
-# Divisão de treino e teste
+# Criando a base de treino e test
 dataset = new_data.values
 train = dataset[0:987, :]
 valid = dataset[987:, :]
@@ -71,7 +73,7 @@ valid_df['date'] = valid_df.index
 valid_df['Predictions'] = closing_price
 
 # Título do gráfico
-st.subheader("📈 Previsão de Ações")
+st.subheader("Previsão de Ações")
 
 # Gráficos com Altair
 chart_train = alt.Chart(train_df).mark_line(color="blue").encode(
@@ -89,6 +91,7 @@ chart_pred = alt.Chart(valid_df).mark_line(color="red").encode(
     y='Predictions:Q'
 )
 
+# Plotagem do gráfico
 st.altair_chart(
     chart_train.interactive() + chart_valid.interactive() + chart_pred.interactive(),
     use_container_width=True
