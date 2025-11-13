@@ -96,3 +96,24 @@ st.altair_chart(
     chart_train.interactive() + chart_valid.interactive() + chart_pred.interactive(),
     use_container_width=True
 )
+
+# =============================
+# ETAPA 3 - Conclusão e Insights
+# =============================
+
+st.subheader("Conclusões e Insights")
+
+st.write("""
+Após a análise dos dados históricos das ações da **Tata Global Beverages Limited (TATAGLOBAL)**, 
+foram observados alguns pontos importantes:
+
+- O preço de fechamento apresentou **variações consistentes ao longo do tempo**, com períodos de alta e baixa bem definidos.  
+- A análise de correlação mostrou que as variáveis de preço (**Open, High, Low, Close**) são fortemente relacionadas entre si, 
+enquanto o **volume de negociação** tem influência mais moderada.  
+- O modelo de rede neural (**MLPRegressor**) conseguiu capturar parcialmente o comportamento da série temporal, 
+apresentando **tendências coerentes nas previsões**, embora pequenas divergências possam ocorrer devido à natureza volátil do mercado.  
+- Esse tipo de modelo é útil para **previsões de curto prazo**, mas deve ser complementado por outras análises para decisões de investimento.
+
+Em resumo, o estudo demonstra que é possível **utilizar técnicas de aprendizado de máquina para prever tendências do mercado**, 
+mas reforça a importância de combinar métodos estatísticos e conhecimento do domínio financeiro para uma análise mais robusta.
+""")
